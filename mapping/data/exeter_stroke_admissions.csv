@@ -1,0 +1,211 @@
+,LSOA11NM,admissions
+0,East Devon 020B,50
+1,East Devon 012A,39
+2,East Devon 010B,36
+3,Mid Devon 002A,36
+5,East Devon 009C,31
+6,East Devon 012C,31
+7,East Devon 014A,30
+8,East Devon 017C,29
+9,East Devon 010A,28
+10,Mid Devon 007B,28
+11,West Devon 001C,28
+12,East Devon 008B,26
+13,East Devon 017A,26
+14,East Devon 017B,26
+15,Exeter 008B,26
+16,Exeter 012B,26
+17,Mid Devon 003A,26
+18,East Devon 010C,25
+19,West Devon 003A,25
+20,East Devon 011A,24
+21,East Devon 013A,24
+22,East Devon 020C,24
+23,Exeter 007D,24
+24,Mid Devon 005A,24
+25,East Devon 016D,23
+26,Exeter 012C,22
+27,Teignbridge 005A,22
+28,West Devon 002A,22
+29,East Devon 002A,21
+30,East Devon 011C,21
+31,East Devon 016B,21
+32,East Devon 020A,21
+33,East Devon 020D,21
+34,Exeter 014B,21
+35,Mid Devon 011C,21
+36,West Devon 001B,21
+37,East Devon 005D,20
+38,East Devon 006D,20
+39,East Devon 008D,20
+40,East Devon 008E,20
+41,East Devon 011B,20
+42,East Devon 011D,20
+43,East Devon 012B,20
+44,East Devon 013B,20
+45,East Devon 016C,20
+46,East Devon 019C,20
+47,Exeter 002E,20
+48,Exeter 009C,20
+49,Mid Devon 001C,20
+50,East Devon 005C,19
+51,East Devon 009A,19
+52,East Devon 015D,19
+53,Exeter 005C,19
+54,Exeter 008C,19
+55,Exeter 009B,19
+56,Exeter 014A,19
+57,Exeter 015C,19
+58,Mid Devon 010A,19
+59,Teignbridge 002E,19
+60,East Devon 001A,18
+62,Exeter 013A,18
+63,Mid Devon 005C,18
+64,Mid Devon 006A,18
+65,Mid Devon 009B,18
+66,North Devon 014C,18
+67,Teignbridge 001C,18
+68,West Devon 002D,18
+69,East Devon 002B,17
+70,East Devon 004F,17
+71,Exeter 014D,17
+72,Mid Devon 007D,17
+73,East Devon 005A,16
+74,East Devon 008C,16
+75,Exeter 006A,16
+76,Mid Devon 004B,16
+77,Mid Devon 008D,16
+78,Mid Devon 011D,16
+79,West Devon 002C,16
+80,East Devon 015C,15
+81,East Devon 018E,15
+82,Exeter 014C,15
+83,Mid Devon 006B,15
+84,Mid Devon 007C,15
+85,Mid Devon 009C,15
+86,Teignbridge 002B,15
+87,East Devon 007C,14
+88,East Devon 007D,14
+89,East Devon 018B,14
+90,Exeter 003A,14
+91,Exeter 003B,14
+92,Mid Devon 004A,14
+93,Mid Devon 007A,14
+94,Mid Devon 010D,14
+95,Mid Devon 011A,14
+96,Teignbridge 002A,14
+97,Teignbridge 002D,14
+98,West Devon 001D,14
+99,West Devon 004A,14
+100,East Devon 001B,13
+101,East Devon 002C,13
+102,East Devon 002D,13
+103,East Devon 003C,13
+104,East Devon 010E,13
+105,East Devon 018C,13
+106,East Devon 018D,13
+107,Exeter 001D,13
+108,Exeter 003C,13
+109,Exeter 011D,13
+110,Exeter 012D,13
+111,Exeter 013E,13
+112,Mid Devon 010B,13
+113,Mid Devon 011B,13
+114,Teignbridge 006A,13
+115,West Devon 002B,13
+116,East Devon 005B,12
+117,East Devon 006A,12
+118,East Devon 007B,12
+119,Exeter 002B,12
+120,Exeter 010C,12
+121,Exeter 010E,12
+122,Exeter 012A,12
+123,Mid Devon 001D,12
+124,Mid Devon 004D,12
+125,Mid Devon 005D,12
+126,Mid Devon 006C,12
+127,Mid Devon 008A,12
+128,Mid Devon 010C,12
+129,Teignbridge 001B,12
+130,Teignbridge 003B,12
+132,East Devon 010D,11
+133,East Devon 013C,11
+134,East Devon 015A,11
+136,Exeter 003E,11
+137,Exeter 004D,11
+138,Exeter 007A,11
+139,Exeter 007C,11
+140,Exeter 008E,11
+141,Mid Devon 002B,11
+142,Mid Devon 002C,11
+143,Mid Devon 005B,11
+144,Mid Devon 006D,11
+145,Mid Devon 008B,11
+146,Mid Devon 008C,11
+147,East Devon 003A,10
+148,East Devon 006B,10
+149,East Devon 006C,10
+150,East Devon 007A,10
+151,East Devon 009B,10
+152,East Devon 016A,10
+153,East Devon 017D,10
+154,East Devon 019A,10
+155,East Devon 019D,10
+156,Exeter 002D,10
+157,Exeter 005A,10
+158,Exeter 009A,10
+159,Exeter 011A,10
+161,Exeter 014E,10
+162,Teignbridge 003D,10
+163,Teignbridge 005D,10
+164,Torridge 009C,10
+165,West Devon 003D,10
+166,East Devon 007E,9
+167,East Devon 015B,9
+168,Exeter 001C,9
+169,Exeter 003D,9
+170,Exeter 007E,9
+171,Exeter 011E,9
+172,Exeter 013B,9
+173,Mid Devon 002D,9
+174,Mid Devon 004C,9
+175,Mid Devon 009D,9
+176,Teignbridge 005C,9
+177,Torridge 007D,9
+178,West Devon 001A,9
+179,East Devon 003D,8
+181,East Devon 004E,8
+182,East Devon 008A,8
+183,East Devon 018A,8
+184,Exeter 002A,8
+185,Exeter 002C,8
+186,Exeter 004B,8
+187,Exeter 005D,8
+188,Exeter 010A,8
+189,Exeter 010B,8
+190,Exeter 015B,8
+191,Teignbridge 002C,8
+192,Teignbridge 004D,8
+193,Teignbridge 005B,8
+194,East Devon 004A,7
+195,East Devon 005E,7
+196,East Devon 014B,7
+197,Exeter 006B,7
+198,Exeter 006C,7
+199,Exeter 013D,7
+200,Exeter 015A,7
+201,Mid Devon 001A,7
+202,Mid Devon 001B,7
+203,Teignbridge 001A,7
+204,East Devon 003B,6
+205,East Devon 014C,6
+206,East Devon 019B,6
+207,Exeter 004C,6
+208,Exeter 005B,6
+209,Exeter 005E,6
+210,Exeter 006E,6
+211,Exeter 007B,6
+212,Exeter 008D,6
+213,Exeter 012E,6
+214,Teignbridge 006C,6
+215,West Devon 003B,6
