@@ -535,19 +535,225 @@ class EvolutionaryAlgorithm(object):
 
 
 
+class BasicFacilityLocationMutator(AbstractMutator):
+    '''
+    Mutates an individual solution by
+    randomly resampling each element with constant probability
 
+    Designed to work with Facility location problems
+    
+    A recommended mutation rate is 1/n where n is the solution size
+    '''
+    
+    def __init__(self, n_candidates, solution_size, mutation_rate=None,
+                 verbose=False):
+        '''
+        Init the mutator
+        
+        Parameters:
+        -----------
+        n_candidates: int
+            Number of discrete locations available
+            
+        solution_size: int
+            Length of a solution vector (chromosome)
+            
+        mutation_rate: float (optional, default = None)
+            If None then set to 1 / solution_size
+            
+        verbose: bool (optional default = False)
+            Useful for education only.  Prints out each stage of the mutation.
+
+        '''
+        self.rng = np.random.default_rng()
+        self.solution_size = solution_size
+        self.n_candidates = n_candidates
+        self.verbose = verbose
+        
+        if mutation_rate is None:
+            self.mutation_rate = 1 / solution_size
+        else:    
+            self.mutation_rate = mutation_rate
+    
+    def mutate(self, solution):
+        '''
+        Randomly mutate a facility location solution
+        
+        Parameters:
+        --------
+        solution, np.ndarray, 
+            A facility allocation e.g. [10, 2, 15, 20]
+
+        '''
+        #1 = mutate element
+        mask = self.rng.binomial(n=1, p=self.mutation_rate, 
+                                 size=len(solution))
+        
+        if self.verbose:
+            print(f'elements mutated: {mask}')
+        
+        #elements keep the same (reverse of mask)
+        mutant = solution[~mask.astype(bool)]
+        
+        if self.verbose:
+            print(f'mutant_part1: {mutant}')
+        
+        #remaining candidate solutions to sample from...
+        candidates = np.arange(self.n_candidates)
+        
+        if self.verbose:
+            print(f'candidates1: {candidates}')
+        
+        mask = np.isin(candidates, solution)
+        candidates = candidates[~mask]
+        
+        if self.verbose:
+            print(f'candidates: {candidates}')
+    
+        
+        #new locations to add to mutant
+        new_locations = self.rng.choice(candidates, 
+                                        size=self.solution_size - len(mutant), 
+                                        replace=False)      
+        if self.verbose:
+            print(f'new_locations: {new_locations}')
+            
+        #concate the mutant 
+        mutant = np.concatenate([mutant, new_locations])
+
+        return mutant
 
 
             
+class FacilityLocationPopulationGenerator(AbstractPopulationGenerator):
+    '''
+    Logic for generating a random finite sized population
+    of facility locations.
+    '''
+    def __init__(self, n_candidates, n_facilities, random_seed=None):
+        self.n_candidates = n_candidates
+        self.n_facilities = n_facilities
+        self.rng = np.random.default_rng(random_seed)
+
+    def generate(self, population_size):
+        '''
+        Generate a list of @population_size solutions. Solutions
+        are randomly generated and unique to maximise
+        diversity of the population.
+
+        Parameters:
+        ---------
+        population_size -- the size of the population
+
+        Returns:
+        ---------
+        np.ndarray. 
+        
+            matrix size = (population_size, n_facilities). 
+            Contains the initial generation of facility locations
+        '''
+
+        #fast lookup to check if solution already exists
+        population = {}
+
+        #return data as
+        population_arr = np.full((population_size, self.n_facilities), -1, 
+                                 dtype=np.byte)
+
+        i = 0
+        while i < population_size:
+            #sample a permutation
+            new_solution = self.random_solution()
+            
+            #check its unique to maximise diversity
+            if str(new_solution) not in population:
+                population[str(new_solution)] = new_solution
+                i = i + 1
+
+        #save unique permutation
+        population_arr[:,] = list(population.values())
+
+        return population_arr
+    
+    
+    def random_solution(self):
+        '''
+        construct a random solution for the facility location
+        problem.  Returns vector of length p
+        '''
+        #create array of candidate indexes
+        candidates = np.arange(self.n_candidates, dtype=np.byte)
+
+        #sample without replacement and return array
+        return self.rng.choice(candidates, size=self.n_facilities, 
+                               replace=False)
 
 
 
+class WeightedAverageObjective:
+    '''
+    Encapsulates logic for calculation of 
+    weighted average in a simple facility location problem
+    '''
+    def __init__(self, demand, travel_matrix):
+        '''store the demand and travel times'''
+        self.demand = demand
+        self.travel_matrix = travel_matrix
+        
+    def evaluate(self, solution):
+        '''calculate the weighted average travel time for solution'''
+
+        #only select clinics encoded with 1 in the solution (cast to bool) 
+        
+        mask = self.travel_matrix.columns[solution]
+        active_facilities = self.travel_matrix[mask]
+        
+        #merge demand and travel times into a single DataFrame
+        problem = self.demand.merge(active_facilities, on='sector', how='inner')
+        
+        #assume travel to closest facility
+        problem['min_cost'] = problem.min(axis=1)
+
+        #return weighted average
+        return np.average(problem['min_cost'], 
+                          weights=problem['n_patients'])
 
 
 
+class FacilityLocationSinglePointCrossOver():
+    '''
+    Single point cross over for a facility location problem
+    with non-binary representation.
+    '''
+    def __init__(self):
+        self.rng = np.random.default_rng()
+    
+    def crossover(self, parent_a, parent_b):
+        
+        #generate exchange vectors
+        ex_vector_a = parent_a[~np.isin(parent_a, parent_b)]
+        ex_vector_b = parent_b[~np.isin(parent_b, parent_a)]
+        
+        #cross over points
+        #copy parents if equal and no exchange possible.
+        if len(ex_vector_a) > 0:
+            x_point = self.rng.integers(len(ex_vector_a))
 
-
-
+            #child a
+            child_a = parent_a[np.isin(parent_a, parent_b)]
+            child_a = np.concatenate([child_a, 
+                                      ex_vector_a[:x_point],
+                                      ex_vector_b[x_point:]])           
+            #child b
+            child_b = parent_b[np.isin(parent_b, parent_a)]
+            child_b = np.concatenate([child_b, 
+                                      ex_vector_b[:x_point],
+                                      ex_vector_a[x_point:]])
+        else:
+            child_a = parent_a
+            child_b = parent_b
+               
+        return child_a, child_b
 
 
 
