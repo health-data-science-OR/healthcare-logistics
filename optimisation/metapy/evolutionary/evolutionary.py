@@ -418,10 +418,7 @@ class MewPlusLambdaEvolutionStrategy(AbstractEvolutionStrategy):
 
         mutator -   AbstractMutator, encapsulates the logic of mutation for an indiviudal
         '''
-        self._mew = mew
-        self._lambda = _lambda
-        self._mutator = mutator
-        self._selector = TruncationSelector(mew)
+It sounds like they have had some joy with 
 
     
     def evolve(self, population, fitness):
