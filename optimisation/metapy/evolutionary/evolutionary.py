@@ -326,22 +326,22 @@ class ElitistGeneticAlgorithmStrategy(AbstractEvolutionStrategy):
         return next_gen
 
 
-class MewLambdaEvolutionStrategy(AbstractEvolutionStrategy):
+class MuLambdaEvolutionStrategy(AbstractEvolutionStrategy):
     '''
-    The (mew, lambda) evolution strategy
+    The (mu, lambda) evolution strategy
     The fittest mew of each generation
     produces lambda/mew offspring each of which is
     mutated.
 
     Each generation is of size lambda.
     '''
-    def __init__(self, mew, _lambda, mutator):
+    def __init__(self, mu, _lambda, mutator):
         '''
         Constructor
 
         Parameters:
         --------
-        mew -       int, controls how selectiveness the algorithm.  
+        mu -       int, controls how selectiveness the algorithm.  
                     Low values of mew relative to _lambsa mean that only the best 
                     breed in each generation and the algorithm becomes 
                     more exploitative.
@@ -352,9 +352,9 @@ class MewLambdaEvolutionStrategy(AbstractEvolutionStrategy):
         mutator -   AbstractMutator, encapsulates the logic of mutation for a 
                     selected individual
         '''
-        self._mew = mew
+        self._mu = mu
         self._lambda = _lambda
-        self._selector = TruncationSelector(mew)
+        self._selector = TruncationSelector(mu)
         self._mutator = mutator
 
     
@@ -384,7 +384,7 @@ class MewLambdaEvolutionStrategy(AbstractEvolutionStrategy):
 
         index = 0
         for parent in fittest:
-            for child_n in range(int(self._lambda/self._mew)):
+            for child_n in range(int(self._lambda/self._mu)):
                 child = self._mutator.mutate(parent.copy())
                 population[index] = child
                 index += 1
@@ -392,9 +392,9 @@ class MewLambdaEvolutionStrategy(AbstractEvolutionStrategy):
         return population
         
 
-class MewPlusLambdaEvolutionStrategy(AbstractEvolutionStrategy):
+class MuPlusLambdaEvolutionStrategy(AbstractEvolutionStrategy):
     '''
-    The (mew+lambda) evolution strategy
+    The (mu+lambda) evolution strategy
     The fittest mew of each generation
     produces lambda/mew offspring each of which is
     mutated.  The mew fittest parents compete with 
@@ -403,13 +403,13 @@ class MewPlusLambdaEvolutionStrategy(AbstractEvolutionStrategy):
     The first generation is of size lambda.
     The second generation is of size mew+lambda
     '''
-    def __init__(self, mew, _lambda, mutator):
+    def __init__(self, mu, _lambda, mutator):
         '''
         Constructor
 
         Parameters:
         --------
-        mew -       int, controls how selectiveness the algorithm.  
+        mu -       int, controls how selectiveness the algorithm.  
                     Low values of mew relative to _lambsa mean that only the best 
                     breed in each generation and the algorithm becomes 
                     more exploitative.
@@ -418,7 +418,10 @@ class MewPlusLambdaEvolutionStrategy(AbstractEvolutionStrategy):
 
         mutator -   AbstractMutator, encapsulates the logic of mutation for an indiviudal
         '''
-It sounds like they have had some joy with 
+        self._mu = mu
+        self._lambda = _lambda
+        self._selector = TruncationSelector(mu)
+        self._mutator = mutator
 
     
     def evolve(self, population, fitness):
@@ -430,7 +433,7 @@ It sounds like they have had some joy with
         Parameters:
         --------
         population -- numpy array, matrix representing a generation of tours
-                      size (lambda+mew, len(tour))
+                      size (lambda+mu, len(tour))
 
         fitness     -- numpy.array, vector, size lambda, representing the fitness of the 
                        individuals in the population
@@ -438,31 +441,29 @@ It sounds like they have had some joy with
         Returns:
         --------
         numpy.arrays - matric a new generation of individuals, 
-                       size (lambda+mew, len(individual))
+                       size (lambda+mu, len(individual))
         '''
 
         fittest = self._selector.select(population, fitness)
         
         #this is the difference from (mew, lambda)
         #could also use np.empty - quicker for larger populations...
-        population = np.full((self._lambda+self._mew, fittest[0].shape[0]),
+        population = np.full((self._lambda+self._mu, fittest[0].shape[0]),
                              0, dtype=np.byte)
 
         population[:len(fittest),] = fittest
     
-        index = self._mew
+        index = self._mu
         for parent in range(len(fittest)):
-            for child_n in range(int(self._lambda/self._mew)):
+            for child_n in range(int(self._lambda/self._mu)):
                 child = self._mutator.mutate(fittest[parent].copy())
                 population[index] = child
                 index += 1
-
+            
         return population
 
 
-
-
-
+    
 class EvolutionaryAlgorithm(object):
     '''
     Encapsulates a simple Evolutionary algorithm
