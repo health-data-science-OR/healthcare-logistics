@@ -165,7 +165,7 @@ class CVRPUnitDemandObjective(AbstractObjective):
     Objective for capacitated vehicle routing
     problem.  Assumes vehicles are all of same type
     '''
-    def __init__(self, matrix, warehouse, demand, capacity):
+    def __init__(self, matrix, warehouse, capacity, enforce_symmetric=True):
         '''
         Constructor
 
@@ -177,16 +177,18 @@ class CVRPUnitDemandObjective(AbstractObjective):
         warehouse - int
             warehouse identifier or index
 
-        demand - dict
-            demand at each city
-
         capacity - float
             maximum capacity of each vehicle 
+
+        enforce_symmetric optional (default = True)
+            road networks are rarely symmetrical.  If simplifying
+            to symmetric problem then set this to true and it 
+            will use the top half of the travel matrix.
         '''
-        self._matrix = matrix
+        self._matrix = np.asarray(matrix)
         self._warehouse = warehouse
-        self._demand = demand
         self._capacity = capacity 
+        self._symmetric = enforce_symmetric
     
     def evaluate(self, tour):
         """
@@ -204,33 +206,68 @@ class CVRPUnitDemandObjective(AbstractObjective):
         first.
         """
         cost = 0.0
-        routes = self._convert_tour_to_routes(tour)
+        routes = self._convert_tour_to_routes(tour[1:])
         
         for subtour in routes:
-            cost += self._subroute_cost(subtour)
+            cost += self._subroute_cost(self._warehouse, subtour)
         return cost
 
-    def _subroute_cost(self, tour):
+    def _subroute_cost(self, warehouse_index, tour):
         '''
         Dev note: Would be more efficient to calculate
         route cost at same time as constructing them
         but leave for now...
         '''
         cost = 0.0
-        for i in range(len(tour) - 1):
-            cost += self._matrix[tour[i]][tour[i+1]]
+        #add in warehouse at start of tour
+        tour = np.concatenate([np.asarray([warehouse_index]), 
+                               tour, 
+                               np.asarray([warehouse_index])])
 
-        cost += self._matrix[tour[len(tour)-1]][tour[0]]    
+        #loop through and calculate costs
+        for i in range(len(tour) - 1):
+            city_1, city_2 = tour[i], tour[i+1]
+            if self._symmetric:
+                city_1, city_2 = self._enforce_symmetry(city_1, city_2)
+            #cities the other way around from pandas as numpy matrix
+            cost += self._matrix[city_2][city_1]
+            #cost += self._matrix2.iat[city_1, city_2]
+            
+        #return to warehouse
+        #cost += self._matrix[tour[len(tour)-1]][tour[0]]    
         return cost
+    
+    def _enforce_symmetry(self, city_1, city_2):
+        '''
+        Road travel distances/times are not symmetric 
+        This makes sure that the index row city is always the lowest
+        index in the lookup.  Works for both postcode sector strings
+        and indexes
+
+        Parameters:
+        -----
+        city_1 - int  or str
+            index/postcode sector of the first city
         
+        city_2 - int 
+            index/postcode sector of the second city
+
+        Returns:
+        -------
+        Tuple 
+        '''
+        if city_1 > city_2:
+            city_1, city_2 = city_2, city_1
+        return city_1, city_2
+
+
     def _convert_tour_to_routes(self, tour):
         '''
         Easy as demand comes in single units and
         capacity is an integer
         '''
         n_cities = len(tour)
-        splits = [i for i in range(self._capacity, n_cities, self._capacity)]
+        capacity = int(self._capacity)
+        splits = [i for i in range(capacity, n_cities, capacity)]
         routes = np.split(tour, splits)
         return routes
-
-
