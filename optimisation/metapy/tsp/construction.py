@@ -30,7 +30,7 @@ class NearestNeighbour(object):
         for i in range(len(self.cities) - 2):
             to_city = self.closest_city_not_in_tour(from_city)
             self.solution.append(self.cities[to_city])
-            print(self.solution)
+            #print(self.solution)
             from_city = to_city
         
         self.solution.append(self.cities[0])
