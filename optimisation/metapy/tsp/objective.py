@@ -80,6 +80,47 @@ class SimpleTSPObjective(AbstractObjective):
         cost += self._matrix[tour[len(tour)-1]][tour[0]]
             
         return cost
+    
+
+class OptimisedSimpleTSPObjective(AbstractObjective):
+    '''
+    Simple objective for the Symmetric TSP
+    Evaluates the cost of a tour.
+    '''
+    def __init__(self, matrix):
+        '''
+        Constructor
+
+        Parameters:
+        -------
+        matrix - numpy.array, matrix (2D array) representing the 
+        edge costs between each city.
+        '''
+        self._matrix = matrix
+    
+    def evaluate(self, tour):
+        """
+        The eucidean total distance in the tour.
+        
+        Parameters: 
+        --------
+        tour -  numpy.array, vector (1D array) representing tour
+                e.g. [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+
+        Returns:
+        -------
+        float - cost of tour.  This is the euclidean difference between each
+        city in @tour with the addition of looping back from the final city to the 
+        first.
+
+        """
+        #create indexer for lookup in matrix
+        indexer = np.concatenate([tour[:-1, None], tour[1:, None]], axis=1)
+        return_trip = np.array([tour[-1], tour[0]]).reshape(1, -1)
+        indexer = np.concatenate([indexer, return_trip])
+
+        #fancy indexing to find costs and summation
+        return self._matrix[indexer[:,0], indexer[:,1]].sum()
 
 
 class CVRPObjective(AbstractObjective):
