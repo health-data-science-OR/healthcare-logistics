@@ -132,10 +132,11 @@ class AnnealingEpsilonGreedyHomeBase(ILSHomeBaseAcceptanceLogic):
        
         #track number of updates to home base and iters at temp
         self.iters_at_temp += 1
-        self.actions += 1
+        
         
         if self.iters_at_temp == self.maxiter_per_temp: 
             #update epsilon
+            self.actions += 1
             self.accept.epsilon = self.annealing.cool_temperature(self.actions) 
             self.iters_at_temp = 0
             if self.verbose:
