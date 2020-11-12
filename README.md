@@ -1,2 +1,3 @@
 # healthcare-logistics
-Materials for the healthcare logistics taught component of HPD098
+
+Materials for the healthcare logistics taught component of HPDM097
