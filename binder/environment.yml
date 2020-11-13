@@ -1,14 +1,12 @@
 name: hds_logistics
 channels:
-  - conda-forge
   - defaults
+  - conda-forge
 dependencies:
   - contextily=1.0.0
   - folium=0.11.0
   - geopandas=0.8.1
   - geoplot=0.4.1
-  - geopy=2.0.0
-  - libpysal=4.3.0
   - jupyterlab=2.2.6
   - mapclassify=2.3.0
   - matplotlib=3.3.1
@@ -17,6 +15,5 @@ dependencies:
   - pip=20.2.3
   - pysal=2.3.0
   - python=3.7.7
-  - scikit-learn=0.23.2
   - scipy=1.5.2
   - seaborn=0.11.0
