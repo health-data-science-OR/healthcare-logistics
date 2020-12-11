@@ -1,3 +1,5 @@
+[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/health-data-science-OR/healthcare-logistics/HEAD)
+
 # Making a difference with health data:
 
 ## Health system logistics
