@@ -1,3 +1,40 @@
-# healthcare-logistics
+# Making a difference with health data:
 
-Materials for the healthcare logistics taught component of HPDM097
+## Health system logistics
+
+> Practical materials for the healthcare logistics taught component of HPDM097
+
+**Dependencies**
+
+Please use the provided conda environment
+
+```
+conda env create -f binder/environment.yml
+
+conda activate hds_logistics
+```
+
+# Syllabus
+
+> INFO: Notebooks 2, 3 and 4 require the `metapy` package and currently will not run in Colab.  All notebooks will run in Binder.
+
+## Exercises
+
+1. Mapping and basic geospatial analysis [![Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/https://github.com/health-data-science-OR/healthcare-logistics/blob/master/mapping/01_geospatial_analysis.ipynb)
+
+2. Facility location: sexual health case study. [![Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/https://github.com/health-data-science-OR/healthcare-logistics/blob/master/optimisation/02_facility_location.ipynb)
+
+3. Introduction to routing and scheduling [![Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/https://github.com/health-data-science-OR/healthcare-logistics/blob/master/optimisation/03_routing_and_scheduling_part1.ipynb)
+
+4. **Optional** Introduction to the VRP [![Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/https://github.com/health-data-science-OR/healthcare-logistics/blob/master/optimisation/04_routing_and_scheduling_part2_OPTIONAL.ipynb)
+
+## Solutions to exercises
+
+1. Mapping and basic geospatial analysis [![Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/https://github.com/health-data-science-OR/healthcare-logistics/blob/master/mapping/01_geospatial_analysis_SOLUTION.ipynb)
+
+2. Facility location: sexual health case study. [![Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/https://github.com/health-data-science-OR/healthcare-logistics/blob/master/optimisation/02_facility_location_SOLUTIONSipynb)
+
+3. Introduction to routing and scheduling [![Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/https://github.com/health-data-science-OR/healthcare-logistics/blob/master/optimisation/03_routing_and_scheduling_part1_SOLUTIONS.ipynb)
+
+
+
