@@ -35,7 +35,7 @@ conda activate hds_logistics
 
 ## Solutions to exercises
 
-1. Mapping and basic geospatial analysis [![Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/health-data-science-OR/healthcare-logistics/blob/master/mapping/01_geospatial_analysis_SOLUTION.ipynb)
+1. Mapping and basic geospatial analysis [![Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/health-data-science-OR/healthcare-logistics/blob/master/mapping/01_geospatial_analysis_SOLUTIONS.ipynb)
 
 2. Facility location: sexual health case study. [![Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/health-data-science-OR/healthcare-logistics/blob/master/optimisation/02_facility_location_SOLUTIONSipynb)
 
