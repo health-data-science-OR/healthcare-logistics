@@ -1,4 +1,5 @@
 import numpy as np
+import pandas as pd
 from abc import ABC, abstractmethod
 
 class AbstractPopulationGenerator(ABC):
@@ -692,30 +693,70 @@ class FacilityLocationPopulationGenerator(AbstractPopulationGenerator):
 
 class WeightedAverageObjective:
     '''
-    Encapsulates logic for calculation of 
-    weighted average in a simple facility location problem
+    Encapsulates logic for calculation of
+    weighted average in a simple facility location problem.
+
+    Thanks:
+    -------
+    Thanks goes to two students - Sammi and Ben in the 2020/21 MSc HDS cohort 
+    for finding and fixing a bug in the evaluate() method.
     '''
+
     def __init__(self, demand, travel_matrix):
-        '''store the demand and travel times'''
+        '''
+        Constructor. store the demand and travel times used
+        to calculate the weighted average.
+
+        Parameters:
+        ---------
+        demand: pd.DataFrame
+            demand for by geo sector.  Assumes includes cols
+            'sector' and 'n_patients'
+
+        travel_matrix: pd.DataFrame
+            Travel cost from geo sector (row) to facility (col)
+        '''
         self.demand = demand
         self.travel_matrix = travel_matrix
-        
-    def evaluate(self, solution):
-        '''calculate the weighted average travel time for solution'''
 
-        #only select clinics encoded with 1 in the solution (cast to bool) 
-        
+    def evaluate(self, solution):
+        '''
+        Calculate the weighted average travel time for a solution.
+        Assumes patients travel to closest facility.
+
+        Parameters:
+        ----------
+        solution: np.array
+            Representation of a solution
+            e.g. [0, 1, 2, 3, 4] will select the first 5 facilities
+
+        Returns:
+        --------
+            float
+        '''
+
+        # only select clinics encoded with 1 in the solution (cast to bool)
         mask = self.travel_matrix.columns[solution]
         active_facilities = self.travel_matrix[mask]
-        
-        #merge demand and travel times into a single DataFrame
-        problem = self.demand.merge(active_facilities, on='sector', how='inner')
-        
-        #assume travel to closest facility
-        problem['min_cost'] = problem.min(axis=1)
 
-        #return weighted average
-        return np.average(problem['min_cost'], 
+        # turn off chained assignment: avoid displaying false +ive
+        # SettingWithCopy warning.
+        pd.set_option('mode.chained_assignment', None)
+
+        # assume travel to closest facility
+        # could also be implemented with .assign
+        active_facilities['min_cost'] = \
+            active_facilities.min(axis=1).to_numpy()
+
+        # turn warnings back on for chained assignment.
+        pd.set_option('mode.chained_assignment', 'warn')
+
+        # merge demand and travel times into a single DataFrame
+        problem = self.demand.merge(active_facilities, on='sector',
+                                    how='inner')
+
+        # return weighted average
+        return np.average(problem['min_cost'],
                           weights=problem['n_patients'])
 
 
