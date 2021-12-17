@@ -1,4 +1,4 @@
-name: hds_logistics_2022
+name: hds_logistics
 channels:
   - conda-forge
 dependencies:
