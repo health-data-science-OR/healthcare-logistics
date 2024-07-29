@@ -17,6 +17,7 @@
     * numpy >= 2.0 deprecates np.Inf. Replaced with np.inf
     * Removed unnecessary sort of result array from Genetic algorithm code.
 
+* Patched `metapy`. Version 0.2.0. np.Inf -> np.inf for `HillClimber`
 
 
 ## v4.0.0

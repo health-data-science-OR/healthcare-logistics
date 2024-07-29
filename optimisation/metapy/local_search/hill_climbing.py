@@ -92,7 +92,8 @@ class HillClimber(object):
         
         #hill climbing time limit
         if time_limit is None:
-            self._time_limit = np.Inf
+            # modification 2025. np.Inf -> np.inf to work numpy >= 2.0
+            self._time_limit = np.inf
         else:
             self._time_limit = time_limit
  
