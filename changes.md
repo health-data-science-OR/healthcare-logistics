@@ -13,6 +13,11 @@
     * `read_file()` does not require `crs` option. Code updated to remove runtime warning.
     * LAB 1: Modified introduction text for and exercise 4. Completed for Solutions + Student copy of notebook.
 
+* Patched Lab 2:
+    * numpy >= 2.0 deprecates np.Inf. Replaced with np.inf
+    * Removed unnecessary sort of result array from Genetic algorithm code.
+
+
 
 ## v4.0.0
 * Updated conda environment.yml to Python 3.10 and latest versions of libraries Dec 2023.
