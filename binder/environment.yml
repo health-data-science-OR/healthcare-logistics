@@ -6,7 +6,7 @@ dependencies:
   - folium=0.17.0
   - geopandas=1.0.1
   - geoplot=0.5.1
-  - jupyterlab=4.2.4
+  - jupyterlab=4.4.7
   - jupyterlab-spellchecker=0.8.4
   - matplotlib=3.9.1
   - numpy=2.0.1
