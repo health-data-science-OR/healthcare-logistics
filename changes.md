@@ -5,6 +5,7 @@
 ### Changed
 
 * ENV: Updated conda environment.yml to Python 3.11 and latest versions of libraries July 2024/
+* ENV: Updated JupyterLab is 4.4.7 (sept 25)
 
 ### Fixed
 
