@@ -1,5 +1,13 @@
 # Changes
 
+## v6.0.0
+
+Minor updates to notebooks ready for 2026/27 cohort
+
+### Fixed
+
+* Updated mapping notebooks.  OpenStreetMap was no longer returning a base map and CartoDB required an API key. Updated to use OpenTopoMap as solution. 
+
 ## v5.0.0
 
 ### Changed
